@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { getThereAreInvalidForms } from '../steps'
+import { getThereAreInvalidForms } from '../tabs'
+import { IState } from '../../store'
 
-const Component = ({ thereAreInvalidForms }) => {
+interface IHeaderProps {
+  thereAreInvalidForms: boolean
+}
+
+const Component = ({ thereAreInvalidForms }: IHeaderProps) => {
   return (
     <>
       <br />
@@ -15,7 +20,7 @@ const Component = ({ thereAreInvalidForms }) => {
   )
 }
 
-const mapStateToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector<IState, IHeaderProps>({
   thereAreInvalidForms: getThereAreInvalidForms,
 })
 

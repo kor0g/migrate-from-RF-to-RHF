@@ -3,7 +3,7 @@ import { ContactsForm } from '../contacts'
 import { PassportForm } from '../passport'
 import { EmployerForm } from '../employer'
 
-export const pageSteps = [
+export const pageTabs = [
   { title: 'Финансы', formName: 'finance', component: FinanceForm },
   { title: 'Контакты', formName: 'contacts', component: ContactsForm },
   { title: 'Паспорт', formName: 'passport', component: PassportForm },

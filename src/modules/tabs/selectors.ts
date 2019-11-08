@@ -2,12 +2,14 @@ import { createSelector } from 'reselect'
 import { isEmpty } from 'ramda'
 import { getFormSyncErrors } from 'redux-form'
 import { getIsFormValid } from '../hook-form'
-import { pageSteps } from './constants'
+import { pageTabs } from './constants'
+import { ITabsState } from './types'
+import { IState } from '../../store'
 
-const getStepsState = state => state.steps
+const getTabsState = (state: IState): ITabsState => state.tabs
 
-const getInvalidForms = state =>
-  pageSteps.reduce((acc, el) => {
+const getInvalidForms = (state: IState): Array<string> =>
+  pageTabs.reduce((acc: Array<string>, el: any) => {
     const validForm = getIsFormValid(el.formName)(state)
     const invalidHookForm = validForm !== null && !validForm
     const invalidReduxForm = !isEmpty(getFormSyncErrors(el.formName)(state))
@@ -19,13 +21,13 @@ export const getThereAreInvalidForms = createSelector(
   invalidForms => !isEmpty(invalidForms),
 )
 
-export const getPageSteps = createSelector(
+export const getPageTabs = createSelector(
   getInvalidForms,
-  getStepsState,
-  (invalidForms, stepsState) =>
-    pageSteps.map(el => {
+  getTabsState,
+  (invalidForms, tabsState) =>
+    pageTabs.map(el => {
       const formIsInvalid = invalidForms.includes(el.formName)
-      const isActive = stepsState.active === el.formName
+      const isActive = tabsState.active === el.formName
       return { ...el, formIsInvalid, isActive }
     }),
 )

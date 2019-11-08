@@ -23,6 +23,7 @@ export const Field = ({ name, label, required, format }) => {
       </Label>
       <Input
         name={name}
+        autoComplete="off"
         placeholder={label}
         ref={register({ required: false, ...validate[name] })}
         onChange={handleChange}

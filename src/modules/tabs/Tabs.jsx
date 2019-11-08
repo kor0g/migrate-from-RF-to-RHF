@@ -3,7 +3,7 @@ import { equals } from 'ramda'
 import styled from 'styled-components'
 import { createStructuredSelector } from 'reselect'
 import { connect } from 'react-redux'
-import { getPageSteps } from './selectors'
+import { getPageTabs } from './selectors'
 import { setActive } from './actions'
 
 const Button = styled.button`
@@ -11,9 +11,9 @@ const Button = styled.button`
   outline: 3px solid ${props => (props.isActive ? 'black' : 'white')};
 `
 
-const Component = ({ pageSteps, setActive }) => (
+const Component = ({ pageTabs, setActive }) => (
   <div>
-    {pageSteps.map(({ title, formName, formIsInvalid, isActive }) => (
+    {pageTabs.map(({ title, formName, formIsInvalid, isActive }) => (
       <Button
         isActive={isActive}
         isInvalid={formIsInvalid}
@@ -26,12 +26,12 @@ const Component = ({ pageSteps, setActive }) => (
 )
 
 const mapStateToProps = createStructuredSelector({
-  pageSteps: getPageSteps,
+  pageTabs: getPageTabs,
 })
 
-const areEqual = (prevProps, nextProps) => equals(prevProps.pageSteps, nextProps.pageSteps)
+const areEqual = (prevProps, nextProps) => equals(prevProps.pageTabs, nextProps.pageTabs)
 
-export const Steps = connect(
+export const Tabs = connect(
   mapStateToProps,
   { setActive },
 )(React.memo(Component, areEqual))
