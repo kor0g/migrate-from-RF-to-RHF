@@ -45,10 +45,10 @@ export const updateFieldValue = (payload: IUpdateFieldValuePayload) => ({
   payload,
 })
 
-export type TAction = ReturnType<typeof setForm> &
-  ReturnType<typeof updateForm> &
-  ReturnType<typeof destroyForm> &
-  ReturnType<typeof updateFieldValue>
+// export type TAction = ReturnType<typeof setForm> &
+//   ReturnType<typeof updateForm> &
+//   ReturnType<typeof destroyForm> &
+//   ReturnType<typeof updateFieldValue>
 
 // export type TAction =
 //   | { type: typeof ACTIONS_TYPES.setForm; payload: ISetFormPayload }
@@ -56,10 +56,10 @@ export type TAction = ReturnType<typeof setForm> &
 //   | { type: typeof ACTIONS_TYPES.updateForm; payload: IUpdateFormPayload }
 //   | { type: typeof ACTIONS_TYPES.updateFieldValue; payload: IUpdateFieldValuePayload }
 
-// export type TAction = { type: typeof ACTIONS_TYPES.setForm; payload: ISetFormPayload } & {
-//   type: typeof ACTIONS_TYPES.destroyForm
-//   payload: string
-// } & { type: typeof ACTIONS_TYPES.updateForm; payload: IUpdateFormPayload } & {
-//   type: typeof ACTIONS_TYPES.updateFieldValue
-//   payload: IUpdateFieldValuePayload
-// }
+export type TAction = { type: typeof ACTIONS_TYPES.setForm; payload: ISetFormPayload } & {
+  type: typeof ACTIONS_TYPES.destroyForm
+  payload: string
+} & { type: typeof ACTIONS_TYPES.updateForm; payload: IUpdateFormPayload } & {
+  type: typeof ACTIONS_TYPES.updateFieldValue
+  payload: IUpdateFieldValuePayload
+}

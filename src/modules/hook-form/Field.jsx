@@ -1,9 +1,6 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
-
-const Label = styled.div``
-const Input = styled.input``
+import { Input } from 'semantic-ui-react'
 
 export const Field = ({ name, label, required, format }) => {
   console.log('Field', name)
@@ -17,11 +14,11 @@ export const Field = ({ name, label, required, format }) => {
   }
   return (
     <div>
-      <Label>
+      <div>
         {label}
         {required && '*'}
-      </Label>
-      <Input
+      </div>
+      <input
         name={name}
         autoComplete="off"
         placeholder={label}

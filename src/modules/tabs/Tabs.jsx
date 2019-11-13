@@ -1,37 +1,26 @@
-import * as React from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { equals } from 'ramda'
-import styled from 'styled-components'
-import { createStructuredSelector } from 'reselect'
-import { connect } from 'react-redux'
+import { Button } from 'semantic-ui-react'
 import { getPageTabs } from './selectors'
 import { setActive } from './actions'
 
-const Button = styled.button`
-  background: ${props => (props.isInvalid ? 'red' : 'green')};
-  outline: 3px solid ${props => (props.isActive ? 'black' : 'white')};
-`
+export const Tabs = () => {
+  const dispatch = useDispatch()
+  const pageTabs = useSelector(getPageTabs, equals)
 
-const Component = ({ pageTabs, setActive }) => (
-  <div>
-    {pageTabs.map(({ title, formName, formIsInvalid, isActive }) => (
-      <Button
-        isActive={isActive}
-        isInvalid={formIsInvalid}
-        key={formName}
-        onClick={() => setActive(formName)}>
-        {title}
-      </Button>
-    ))}
-  </div>
-)
-
-const mapStateToProps = createStructuredSelector({
-  pageTabs: getPageTabs,
-})
-
-const areEqual = (prevProps, nextProps) => equals(prevProps.pageTabs, nextProps.pageTabs)
-
-export const Tabs = connect(
-  mapStateToProps,
-  { setActive },
-)(React.memo(Component, areEqual))
+  return (
+    <Button.Group>
+      {pageTabs.map(({ title, formName, isInvalid, isActive }) => (
+        <Button
+          key={formName}
+          active={isActive}
+          positive
+          negative={isInvalid}
+          onClick={() => dispatch(setActive(formName))}>
+          {title}
+        </Button>
+      ))}
+    </Button.Group>
+  )
+}

@@ -24,10 +24,12 @@ export const getThereAreInvalidForms = createSelector(
 export const getPageTabs = createSelector(
   getInvalidForms,
   getTabsState,
-  (invalidForms, tabsState) =>
-    pageTabs.map(el => {
-      const formIsInvalid = invalidForms.includes(el.formName)
-      const isActive = tabsState.active === el.formName
-      return { ...el, formIsInvalid, isActive }
-    }),
+  (invalidForms, tabsState) => {
+    console.log('getPageTabs')
+    return pageTabs.map(({ formName, title }) => {
+      const isInvalid = invalidForms.includes(formName)
+      const isActive = tabsState.active === formName
+      return { title, formName, isInvalid, isActive }
+    })
+  },
 )

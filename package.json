@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.6.0",
     "@types/ramda": "^0.26.33",
     "@types/redux-form": "^8.2.0",
     "@types/reselect": "^2.2.0",
@@ -17,6 +16,8 @@
     "redux-form": "^8.2.6",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.1",
     "styled-components": "^4.4.1",
     "typescript": "3.7.2"
   },
