@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import { Field } from 'redux-form'
 
-const CustomField = ({ input, label, type, meta: { touched, error } }) => (
+const CustomField = ({ input, label, type, meta: { touched, error } }: any) => (
   <div>
     <div>{label}</div>
     <div>
@@ -11,4 +11,4 @@ const CustomField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 )
 
-export const RField = ({ ...props }) => <Field {...props} component={CustomField} />
+export const RField = ({ ...props }: any) => <Field {...props} component={CustomField} />

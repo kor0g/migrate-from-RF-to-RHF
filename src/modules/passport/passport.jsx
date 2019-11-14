@@ -16,7 +16,7 @@ export const PassportForm = () => {
       <form>
         <Field name="number" label="Серия, номер" />
         <Field name="date" label="Дата выдачи" />
-        <Field name="who" label="Кем выдан" />
+        <Field name="who" format={v => (v || '').toUpperCase()} label="Кем выдан" />
       </form>
     </FormContext>
   )

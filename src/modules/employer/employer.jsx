@@ -16,7 +16,7 @@ export const EmployerForm = () => {
       <form>
         <Field name="name" label="Наименование" />
         <Field name="inn" label="ИНН" />
-        <Field name="card" label="Карта" format={(value = '') => value.toUpperCase()} />
+        <Field name="card" label="Карта" />
       </form>
     </FormContext>
   )

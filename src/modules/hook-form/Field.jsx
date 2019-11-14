@@ -1,31 +1,43 @@
-import React from 'react'
-import { useFormContext } from 'react-hook-form'
+import React, { useEffect } from 'react'
+import { path } from 'ramda'
+import { useFormContext, Controller } from 'react-hook-form'
 import { Input } from 'semantic-ui-react'
 
-export const Field = ({ name, label, required, format }) => {
-  console.log('Field', name)
-  const { register, errors, setFieldValueToState, validate = {} } = useFormContext()
-  const handleChange = e => {
-    const value = e.target.value
+export const Field = ({ name, label, required, format, ...uiProps }) => {
+  const { errors, setFieldValueToState, control, validate = {} } = useFormContext()
+  const fieldValidate = validate[name] || {}
+  const fieldError = errors[name]
+
+  const handleChange = data => {
+    let value = data[1].value
+    // const event = data[0]
+
     if (format) {
-      e.target.value = format(value)
+      value = format(value)
     }
+
     setFieldValueToState(name, value)
+
+    return value
   }
+
   return (
     <div>
       <div>
         {label}
-        {required && '*'}
+        {(required || fieldValidate.required) && '*'}
       </div>
-      <input
+      <Controller
+        as={<Input type="text" {...uiProps} />}
+        control={control}
+        rules={{ required: false, ...fieldValidate }}
         name={name}
         autoComplete="off"
         placeholder={label}
-        ref={register({ required: false, ...validate[name] })}
         onChange={handleChange}
+        defaultValue=""
       />
-      {errors[name] && <span style={{ color: 'red' }}>{errors[name].message}</span>}
+      {fieldError && <span style={{ color: 'red' }}>{fieldError.message}</span>}
     </div>
   )
 }

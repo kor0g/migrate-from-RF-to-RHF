@@ -10,7 +10,12 @@ const initial: ITabsState = {
   active: '',
 }
 
-export const tabsReducer: TTabsReducer = (state = initial, { type, payload }) =>
-  ({
-    SET_ACTIVE: { ...state, active: payload },
-  }[type] || state)
+// @ts-ignore
+export const tabsReducer: TTabsReducer = (state = initial, { type, payload }) => {
+  switch (type) {
+    case 'SET_ACTIVE':
+      return { ...state, active: payload }
+    default:
+      return state
+  }
+}

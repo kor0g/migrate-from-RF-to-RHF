@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useForm from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { store } from '../../store'
 import { getFormValues } from './selectors'
 import { setForm, updateFieldValue, destroyForm, updateForm } from './actions'
@@ -29,13 +29,11 @@ export const useStoreForm = ({
       }
     }
   }, [])
-  console.log({ formState })
 
-  // useEffect(() => {
-  //   // did update
-  //   // CIRCULAR!
-  //   store.dispatch(updateForm({ formName, formData: { isValid: formState.isValid, errors } }))
-  // }, [formState.isValid])
+  useEffect(() => {
+    // did update
+    // store.dispatch(updateForm({ formName, formData: { isValid: formState.isValid, errors } }))
+  }, [formName, formState.isValid, errors])
 
   const setFieldValueToState = (fieldName, value) =>
     store.dispatch(updateFieldValue({ formName, fieldName, value }))
