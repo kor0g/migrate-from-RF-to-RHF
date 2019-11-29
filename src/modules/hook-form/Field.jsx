@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form'
 import { Input } from 'semantic-ui-react'
 
 export const Field = ({ name, label, required, format, ...uiProps }) => {
-  console.log('Field', { uiProps })
+  // console.log('Field', { uiProps })
   const { register, errors, setFieldValueToState, validate = {} } = useFormContext()
   const handleChange = e => {
     const value = e.target.value

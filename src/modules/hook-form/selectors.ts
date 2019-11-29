@@ -3,7 +3,9 @@ import { path } from 'ramda'
 import { IHookFormState, IForm } from './types'
 // import { IState } from '../../store'
 
-type IState = any
+interface IState {
+  [key: string]: {}
+}
 
 const getHookFormState = (state: IState): IHookFormState | void => state.hookForm
 
@@ -31,15 +33,15 @@ export const getIsFormValid = (name: string) =>
     formData => formData && formData.isValid,
   )
 
-// const getAllFormNames = createSelector(
-//   getHookFormState,
-//   (forms?: IHookFormState) => Object.keys(forms || {}),
-// )
+const getAllFormNames = createSelector(
+  getHookFormState,
+  forms => Object.keys(forms || {}),
+)
 
-// export const getAreFormValid = (formNames?: Array<string>) =>
-//   createSelector(
-//     (state: IState): IState => state,
-//     getAllFormNames,
-//     (state: IState, allFormNames: Array<string>) =>
-//       (formNames || allFormNames).every(name => getIsFormValid(name)(state)),
-//   )
+export const getAreFormValid = (formNames?: Array<string>) =>
+  createSelector(
+    (state: IState): IState => state,
+    getAllFormNames,
+    (state: IState, allFormNames: Array<string>) =>
+      (formNames || allFormNames).every(name => getIsFormValid(name)(state)),
+  )

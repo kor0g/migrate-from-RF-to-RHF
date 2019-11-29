@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import useForm from 'react-hook-form'
 import { combineReducers } from 'redux'
-import { store, staticReducers } from '../../store'
+import { store, addReducer, deleteReducer } from '../../store'
 import { getFormValues } from './selectors'
 import { setForm, updateFieldValue, destroyForm, updateForm } from './actions'
 import { hookFormReducer } from './reducers'
@@ -20,13 +20,8 @@ export const useStoreForm = ({
 
   useEffect(() => {
     // did mount
-    if (true) {
-      const newRootReducer = combineReducers({
-        ...staticReducers,
-        hookForm: hookFormReducer,
-      })
-
-      store.replaceReducer(newRootReducer)
+    if (!state.hookForm) {
+      store.dispatch(addReducer('hookForm'))
     }
     store.dispatch(
       setForm({ formName, formData: { isValid: formState.isValid, values: getValues(), errors } }),
@@ -35,11 +30,12 @@ export const useStoreForm = ({
     return () => {
       // will unmount
       if (destroyOnUnmount) {
-        store.dispatch(destroyForm(formName))
+        // store.dispatch(destroyForm(formName))
       }
+      store.dispatch(deleteReducer('hookForm'))
     }
   }, [])
-  console.log({ store })
+  // console.log({ store })
 
   useEffect(() => {
     // did update
