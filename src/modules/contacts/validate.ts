@@ -1,5 +1,5 @@
-export const validate = values => {
-  let errors = {}
+export const validate = (values: any) => {
+  let errors: any = {}
 
   if (!values.number) {
     errors.number = 'Обязательно для заполнения'

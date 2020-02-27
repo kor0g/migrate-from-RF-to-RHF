@@ -1,19 +1,26 @@
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, UseFormOptions } from 'react-hook-form'
 import { store } from '../../store'
 import { getFormValues } from './selectors'
 import { setForm, updateFieldValue, destroyForm, updateForm } from './actions'
+
+interface IUseStoreFormArgs extends UseFormOptions {
+  validate?: {}
+  formName: string
+  defaultValues?: {}
+  destroyOnUnmount?: boolean
+}
 
 export const useStoreForm = ({
   validate,
   formName,
   defaultValues,
   destroyOnUnmount = true,
-  ...config
-}) => {
+  ...nativaHookFormConfig
+}: IUseStoreFormArgs) => {
   const state = store.getState()
   const values = getFormValues(formName)(state)
-  const formData = useForm({ ...config, defaultValues: values || defaultValues })
+  const formData = useForm({ ...nativaHookFormConfig, defaultValues: values || defaultValues })
   const { formState, getValues, errors } = formData
 
   useEffect(() => {
@@ -32,11 +39,12 @@ export const useStoreForm = ({
 
   useEffect(() => {
     // did update
-    // store.dispatch(updateForm({ formName, formData: { isValid: formState.isValid, errors } }))
+    store.dispatch(updateForm({ formName, formData: { isValid: formState.isValid, errors } }))
   }, [formName, formState.isValid, errors])
 
-  const setFieldValueToState = (fieldName, value) =>
+  const setFieldValueToState = (fieldName: string, value: any) => {
     store.dispatch(updateFieldValue({ formName, fieldName, value }))
+  }
 
   return {
     ...formData,

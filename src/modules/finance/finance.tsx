@@ -1,6 +1,6 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
-import { RField } from '../../components'
+import { RField } from '../extended-redux-form'
 import { validate } from './validate'
 
 const Form = () => (

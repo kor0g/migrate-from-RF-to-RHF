@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { Button } from 'semantic-ui-react'
-import { getThereAreInvalidForms } from '../tabs'
+import { hasInvalidForms } from './selectors'
 
 export const Header: FC = () => {
-  const isDisabled = useSelector(getThereAreInvalidForms)
+  const isDisabled = useSelector(hasInvalidForms)
   return (
     <>
       <br />

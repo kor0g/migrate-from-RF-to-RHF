@@ -7,7 +7,7 @@ export const PassportForm = () => {
   const methods = useStoreForm({
     formName: 'passport',
     mode: 'onChange',
-    destroyOnUnmount: false,
+    // destroyOnUnmount: false,
     validate,
   })
 
@@ -16,7 +16,7 @@ export const PassportForm = () => {
       <form>
         <Field name="number" label="Серия, номер" />
         <Field name="date" label="Дата выдачи" />
-        <Field name="who" format={v => (v || '').toUpperCase()} label="Кем выдан" />
+        <Field name="who" label="Кем выдан" format={v => (v || '').toUpperCase()} />
       </form>
     </FormContext>
   )

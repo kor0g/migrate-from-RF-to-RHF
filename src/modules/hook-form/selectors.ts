@@ -1,40 +1,33 @@
 import { createSelector } from 'reselect'
-import { path } from 'ramda'
+// import { path } from 'ramda'
 import { IHookFormState, IForm } from './types'
 // import { IState } from '../../store'
 
 type IState = any
 
-const getHookFormState = (state: IState): IHookFormState | void => state.hookForm
+const getHookFormState = (state: IState): IHookFormState => state.hookForm
 
 const getFormData = (name: string) =>
-  createSelector(
-    getHookFormState,
-    forms => (forms || {})[name] || null,
-  )
+  createSelector(getHookFormState, forms => (forms || {})[name] || null)
+
+const getFormNames = createSelector(getHookFormState, (hookForm: IHookFormState) =>
+  Object.keys(hookForm),
+)
 
 export const getFormValues = (name: string) =>
-  createSelector(
-    getFormData(name),
-    formData => (formData && formData.values) || null,
-  )
+  createSelector(getFormData(name), formData => (formData && formData.values) || null)
 
 export const getFormErrors = (name: string) =>
-  createSelector(
-    getFormData(name),
-    formData => (formData && formData.errors) || null,
-  )
+  createSelector(getFormData(name), formData => (formData && formData.errors) || null)
 
 export const getIsFormValid = (name: string) =>
-  createSelector(
-    getFormData(name),
-    formData => formData && formData.isValid,
-  )
+  createSelector(getFormData(name), formData => formData && formData.isValid)
 
-// const getAllFormNames = createSelector(
-//   getHookFormState,
-//   (forms?: IHookFormState) => Object.keys(forms || {}),
-// )
+export const getInvalidHFormNames = createSelector(
+  state => state,
+  getFormNames,
+  (state, formNames: Array<string>) => formNames.filter(el => !getIsFormValid(el)(state)),
+)
 
 // export const getAreFormValid = (formNames?: Array<string>) =>
 //   createSelector(
